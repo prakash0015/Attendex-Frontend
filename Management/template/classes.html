@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes Management | Attendance System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/commonCode.css">
+    <script src="../script/classes.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="main-content">
+            <div class="header">
+                <div class="search-box">
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-info">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                        <div class="notification-dropdown">
+                            <div class="notification-header">
+                                <h3>Notifications</h3>
+                                <span class="mark-read">Mark all as read</span>
+                            </div>
+                            <div class="notification-list">
+                                <div class="notification-item unread">
+                                    <i class="fas fa-user-plus"></i>
+                                    <div class="notification-content">
+                                        <p>New student registered</p>
+                                        <span class="time">2 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item unread">
+                                    <i class="fas fa-user-edit"></i>
+                                    <div class="notification-content">
+                                        <p>Teacher profile updated</p>
+                                        <span class="time">4 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <i class="fas fa-clipboard-check"></i>
+                                    <div class="notification-content">
+                                        <p>Attendance marked for Class 5A</p>
+                                        <span class="time">6 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-profile">
+                        <div class="avatar" id="userAvatar">
+                            <span>AM</span>
+                        </div>
+                        <div class="name">Admin Manager</div>
+                        <div class="user-dropdown">
+                            <div class="user-dropdown-header">
+                                <div class="avatar">
+                                    <span>AM</span>
+                                </div>
+                                <div class="user-details">
+                                    <h3>Admin Manager</h3>
+                                    <p>admin@school.com</p>
+                                </div>
+                            </div>
+                            <div class="user-dropdown-menu">
+                                <a href="#"><i class="fas fa-user"></i> Profile</a>
+                                <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                                <a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content">
+                <div class="content-header">
+                    <h1>Classes Management</h1>
+                    <button id="addClassBtn" class="primary-btn">Add New Class</button>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Classes List</h2>
+                        <div class="filter">
+                            <select id="gradeFilter">
+                                <option value="">All Grades</option>
+                                <option value="1">Grade 1</option>
+                                <option value="2">Grade 2</option>
+                                <option value="3">Grade 3</option>
+                                <option value="4">Grade 4</option>
+                                <option value="5">Grade 5</option>
+                            </select>
+                            <input type="text" id="searchClass" placeholder="Search class...">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Class ID</th>
+                                    <th>Class Name</th>
+                                    <th>Grade</th>
+                                    <th>Section</th>
+                                    <th>Class Teacher</th>
+                                    <th>Total Students</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="classesList">
+                                <!-- Class data will be populated here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <div class="pagination">
+                            <button class="page-btn">Previous</button>
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <button class="page-btn">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Class Modal -->
+    <div id="addClassModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Class</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="addClassForm">
+                    <div class="form-group">
+                        <label for="className">Class Name</label>
+                        <input type="text" id="className" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="grade">Grade</label>
+                        <select id="grade" required>
+                            <option value="">Select Grade</option>
+                            <option value="1">Grade 1</option>
+                            <option value="2">Grade 2</option>
+                            <option value="3">Grade 3</option>
+                            <option value="4">Grade 4</option>
+                            <option value="5">Grade 5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="section">Section</label>
+                        <select id="section" required>
+                            <option value="">Select Section</option>
+                            <option value="A">Section A</option>
+                            <option value="B">Section B</option>
+                            <option value="C">Section C</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="classTeacher">Class Teacher</label>
+                        <select id="classTeacher" required>
+                            <option value="">Select Teacher</option>
+                            <option value="1">John Smith</option>
+                            <option value="2">Sarah Johnson</option>
+                            <option value="3">Michael Brown</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="capacity">Class Capacity</label>
+                        <input type="number" id="capacity" min="20" max="50" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="classStatus">Status</label>
+                        <select id="classStatus">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="button" class="secondary-btn cancel-btn">Cancel</button>
+                        <button type="submit" class="primary-btn">Add Class</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../script/loadSidebar.js"></script>
+    <script src="../script/sidebar.js"></script>
+</body>
+</html> 

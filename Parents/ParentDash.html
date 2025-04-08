@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTrack Pro - Parent Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #4A90E2;
+            --secondary: #6C5CE7;
+            --accent: #00CEC9;
+            --light: #F8F9FF;
+            --dark: #2D3436;
+        }
+
+        body {
+            background: #fffdf8;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Section */
+        .dashboard-header {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .dashboard-header h1 {
+            color: var(--dark);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-header p {
+            color: #636E72;
+            font-size: 1rem;
+        }
+
+        /* Stats Cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        .stat-card h3 {
+            color: var(--dark);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-card h3 i {
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+
+        .attendance-percent {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Attendance Table */
+        .report-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .report-section h2 {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .attendance-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .attendance-table th {
+            background: var(--light);
+            color: var(--dark);
+            padding: 15px;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .attendance-table td {
+            padding: 15px;
+            color: #636E72;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .status-indicator {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-indicator i {
+            font-size: 0.7rem;
+        }
+
+        .present { 
+            background: #E3FCEF;
+            color: #2E7D32;
+        }
+        .absent { 
+            background: #FFEBEE;
+            color: #C62828;
+        }
+
+        /* Notices Section */
+        .notice-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .notice-card:hover {
+            transform: translateX(10px);
+        }
+
+        .notice-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .notice-content h4 {
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .notice-content p {
+            color: #636E72;
+            font-size: 0.9rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: #F1F5F9;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 92%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Parent Dashboard</h1>
+            <p>Welcome to Sharma Family Portal</p>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3><i class="fas fa-user-check"></i>Student Attendance</h3>
+                <p class="attendance-percent">92%</p>
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+                <p>2% improvement from last month</p>
+            </div>
+
+            <div class="stat-card">
+                <h3><i class="fas fa-calendar-alt"></i>Upcoming Events</h3>
+                <div class="notice-card">
+                    <div class="notice-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="notice-content">
+                        <h4>Parent-Teacher Meeting</h4>
+                        <p>15th April 2023 • 10:00 AM</p>
+                    </div>
+                </div>
+                <div class="notice-card">
+                    <div class="notice-icon" style="background: var(--accent)">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <div class="notice-content">
+                        <h4>Sports Day Event</h4>
+                        <p>20th April 2023 • School Ground</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <h3><i class="fas fa-star"></i>Recent Grades</h3>
+                <div class="grade-item">
+                    <h4>Mathematics <span class="grade-badge">A</span></h4>
+                    <p>Algebra & Geometry Test</p>
+                </div>
+                <div class="grade-item">
+                    <h4>Science <span class="grade-badge">B+</span></h4>
+                    <p>Physics & Chemistry Project</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="report-section">
+            <h2>Attendance History</h2>
+            <table class="attendance-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>01/04/2023</td>
+                        <td><span class="status-indicator present"><i class="fas fa-check"></i>Present</span></td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>31/03/2023</td>
+                        <td><span class="status-indicator absent"><i class="fas fa-times"></i>Absent</span></td>
+                        <td>Medical Leave</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Add simple animations
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

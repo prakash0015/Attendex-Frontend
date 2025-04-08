@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Settings | Attendance System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/commonCode.css">
+    <script src="../script/system-settings.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="main-content">
+            <div class="header">
+                <div class="search-box">
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-info">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                        <div class="notification-dropdown">
+                            <div class="notification-header">
+                                <h3>Notifications</h3>
+                                <span class="mark-read">Mark all as read</span>
+                            </div>
+                            <div class="notification-list">
+                                <div class="notification-item unread">
+                                    <i class="fas fa-user-plus"></i>
+                                    <div class="notification-content">
+                                        <p>New student registered</p>
+                                        <span class="time">2 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item unread">
+                                    <i class="fas fa-user-edit"></i>
+                                    <div class="notification-content">
+                                        <p>Teacher profile updated</p>
+                                        <span class="time">4 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <i class="fas fa-clipboard-check"></i>
+                                    <div class="notification-content">
+                                        <p>Attendance marked for Class 5A</p>
+                                        <span class="time">6 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-profile">
+                        <div class="avatar" id="userAvatar">
+                            <span>AM</span>
+                        </div>
+                        <div class="name">Admin Manager</div>
+                        <div class="user-dropdown">
+                            <div class="user-dropdown-header">
+                                <div class="avatar">
+                                    <span>AM</span>
+                                </div>
+                                <div class="user-details">
+                                    <h3>Admin Manager</h3>
+                                    <p>admin@school.com</p>
+                                </div>
+                            </div>
+                            <div class="user-dropdown-menu">
+                                <a href="#"><i class="fas fa-user"></i> Profile</a>
+                                <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                                <a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content">
+                <div class="content-header">
+                    <h1>System Settings</h1>
+                </div>
+                
+                <div class="settings-grid">
+                    <!-- General Settings -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <i class="fas fa-cog"></i>
+                            <h2>General Settings</h2>
+                        </div>
+                        <div class="settings-body">
+                            <div class="form-group">
+                                <label for="schoolName">School Name</label>
+                                <input type="text" id="schoolName" value="EduTrack Pro School">
+                            </div>
+                            <div class="form-group">
+                                <label for="schoolAddress">School Address</label>
+                                <textarea id="schoolAddress">123 Education Street, Learning City</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactNumber">Contact Number</label>
+                                <input type="tel" id="contactNumber" value="+1 234 567 8900">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" value="info@edutrackpro.com">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Attendance Settings -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <i class="fas fa-clock"></i>
+                            <h2>Attendance Settings</h2>
+                        </div>
+                        <div class="settings-body">
+                            <div class="form-group">
+                                <label for="startTime">School Start Time</label>
+                                <input type="time" id="startTime" value="08:00">
+                            </div>
+                            <div class="form-group">
+                                <label for="endTime">School End Time</label>
+                                <input type="time" id="endTime" value="15:00">
+                            </div>
+                            <div class="form-group">
+                                <label for="lateThreshold">Late Arrival Threshold (minutes)</label>
+                                <input type="number" id="lateThreshold" value="15" min="1" max="60">
+                            </div>
+                            <div class="form-group">
+                                <label for="attendanceMode">Attendance Mode</label>
+                                <select id="attendanceMode">
+                                    <option value="manual">Manual</option>
+                                    <option value="automatic">Automatic</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Notification Settings -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <i class="fas fa-bell"></i>
+                            <h2>Notification Settings</h2>
+                        </div>
+                        <div class="settings-body">
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="emailNotifications" checked>
+                                    <span>Email Notifications</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="smsNotifications">
+                                    <span>SMS Notifications</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="parentNotifications" checked>
+                                    <span>Parent Notifications</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="teacherNotifications" checked>
+                                    <span>Teacher Notifications</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Security Settings -->
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <i class="fas fa-shield-alt"></i>
+                            <h2>Security Settings</h2>
+                        </div>
+                        <div class="settings-body">
+                            <div class="form-group">
+                                <label for="passwordPolicy">Password Policy</label>
+                                <select id="passwordPolicy">
+                                    <option value="basic">Basic (6 characters)</option>
+                                    <option value="medium">Medium (8 characters)</option>
+                                    <option value="strong">Strong (12 characters)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="sessionTimeout">Session Timeout (minutes)</label>
+                                <input type="number" id="sessionTimeout" value="30" min="5" max="120">
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="twoFactorAuth">
+                                    <span>Enable Two-Factor Authentication</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="ipRestriction">
+                                    <span>IP Address Restriction</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-actions">
+                    <button class="secondary-btn">Reset to Default</button>
+                    <button class="primary-btn">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../script/loadSidebar.js"></script>
+    <script src="../script/sidebar.js"></script>
+</body>
+</html> 

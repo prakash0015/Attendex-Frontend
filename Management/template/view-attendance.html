@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Attendance | Attendance System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/commonCode.css">
+    <script src="../script/view-attendance.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="main-content">
+            <div class="header">
+                <div class="search-box">
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-info">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                        <div class="notification-dropdown">
+                            <div class="notification-header">
+                                <h3>Notifications</h3>
+                                <span class="mark-read">Mark all as read</span>
+                            </div>
+                            <div class="notification-list">
+                                <div class="notification-item unread">
+                                    <i class="fas fa-user-plus"></i>
+                                    <div class="notification-content">
+                                        <p>New student registered</p>
+                                        <span class="time">2 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item unread">
+                                    <i class="fas fa-user-edit"></i>
+                                    <div class="notification-content">
+                                        <p>Teacher profile updated</p>
+                                        <span class="time">4 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <i class="fas fa-clipboard-check"></i>
+                                    <div class="notification-content">
+                                        <p>Attendance marked for Class 5A</p>
+                                        <span class="time">6 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-profile">
+                        <div class="avatar" id="userAvatar">
+                            <span>AM</span>
+                        </div>
+                        <div class="name">Admin Manager</div>
+                        <div class="user-dropdown">
+                            <div class="user-dropdown-header">
+                                <div class="avatar">
+                                    <span>AM</span>
+                                </div>
+                                <div class="user-details">
+                                    <h3>Admin Manager</h3>
+                                    <p>admin@school.com</p>
+                                </div>
+                            </div>
+                            <div class="user-dropdown-menu">
+                                <a href="#"><i class="fas fa-user"></i> Profile</a>
+                                <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                                <a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content">
+                <div class="content-header">
+                    <h1>View Attendance</h1>
+                    <div class="filter">
+                        <select id="classFilter">
+                            <option value="">All Classes</option>
+                            <option value="1A">1A</option>
+                            <option value="2B">2B</option>
+                            <option value="3C">3C</option>
+                            <option value="4D">4D</option>
+                            <option value="5A">5A</option>
+                        </select>
+                        <input type="date" id="dateFilter">
+                        <button class="primary-btn">Generate Report</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Attendance Records</h2>
+                        <div class="filter">
+                            <select id="statusFilter">
+                                <option value="">All Status</option>
+                                <option value="Present">Present</option>
+                                <option value="Absent">Absent</option>
+                                <option value="Late">Late</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Class</th>
+                                    <th>Student Name</th>
+                                    <th>Roll No.</th>
+                                    <th>Status</th>
+                                    <th>In Time</th>
+                                    <th>Out Time</th>
+                                    <th>Notes</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendanceList">
+                                <!-- Attendance data will be populated here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <div class="pagination">
+                            <button class="page-btn">Previous</button>
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <button class="page-btn">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../script/loadSidebar.js"></script>
+    <script src="../script/sidebar.js"></script>
+</body>
+</html> 

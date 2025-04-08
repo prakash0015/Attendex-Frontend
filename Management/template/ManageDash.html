@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Attendance System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/commonCode.css">
+    <link rel="stylesheet" href="../static/ManageDash.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .card:nth-child(1) .card-icon {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        .card:nth-child(2) .card-icon {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+        }
+
+        .card:nth-child(3) .card-icon {
+            background: rgba(255, 152, 0, 0.1);
+            color: #FF9800;
+        }
+
+        .card:nth-child(4) .card-icon {
+            background: rgba(156, 39, 176, 0.1);
+            color: #9C27B0;
+        }
+
+        .card-info h3 {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .card-info .number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .card-info .trend {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .trend.up {
+            color: #4CAF50;
+        }
+
+        .trend.down {
+            color: #F44336;
+        }
+
+        .trend i {
+            margin-right: 5px;
+        }
+
+        .dashboard-charts {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .chart-header h2 {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .filter select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            color: #333;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .activity-item:hover {
+            background: #f1f3f5;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .activity-item:nth-child(1) .activity-icon {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        .activity-item:nth-child(2) .activity-icon {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+        }
+
+        .activity-item:nth-child(3) .activity-icon {
+            background: rgba(255, 152, 0, 0.1);
+            color: #FF9800;
+        }
+
+        .activity-info p {
+            margin: 0;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .activity-info .time {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .chart-wrapper {
+            flex: 1;
+            position: relative;
+            height: calc(100% - 50px);
+        }
+
+        #attendanceChart {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-charts {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-content">
+            <div class="header">
+                <div class="search-box">
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-info">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                        <div class="notification-dropdown">
+                            <div class="notification-header">
+                                <h3>Notifications</h3>
+                                <span class="mark-read">Mark all as read</span>
+                            </div>
+                            <div class="notification-list">
+                                <div class="notification-item unread">
+                                    <i class="fas fa-user-plus"></i>
+                                    <div class="notification-content">
+                                        <p>New student registered</p>
+                                        <span class="time">2 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item unread">
+                                    <i class="fas fa-user-edit"></i>
+                                    <div class="notification-content">
+                                        <p>Teacher profile updated</p>
+                                        <span class="time">4 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <i class="fas fa-clipboard-check"></i>
+                                    <div class="notification-content">
+                                        <p>Attendance marked for Class 5A</p>
+                                        <span class="time">6 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-profile">
+                        <div class="avatar" id="userAvatar">
+                            <span>AM</span>
+                        </div>
+                        <div class="name">Admin Manager</div>
+                        <div class="user-dropdown">
+                            <div class="user-dropdown-header">
+                                <div class="avatar">
+                                    <span>AM</span>
+                                </div>
+                                <div class="user-details">
+                                    <h3>Admin Manager</h3>
+                                    <p>admin@school.com</p>
+                                </div>
+                            </div>
+                            <div class="user-dropdown-menu">
+                                <a href="#"><i class="fas fa-user"></i> Profile</a>
+                                <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                                <a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content">
+                <div class="content-header">
+                    <h1>Dashboard</h1>
+                </div>
+                
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="card-info">
+                            <h3>Total Students</h3>
+                            <p class="number">1,234</p>
+                            <p class="trend up"><i class="fas fa-arrow-up"></i> +12% from last month</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="card-info">
+                            <h3>Total Teachers</h3>
+                            <p class="number">45</p>
+                            <p class="trend up"><i class="fas fa-arrow-up"></i> +5% from last month</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="card-info">
+                            <h3>Total Parents</h3>
+                            <p class="number">1,200</p>
+                            <p class="trend up"><i class="fas fa-arrow-up"></i> +8% from last month</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="card-info">
+                            <h3>Attendance Rate</h3>
+                            <p class="number">95%</p>
+                            <p class="trend down"><i class="fas fa-arrow-down"></i> -2% from last month</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-charts">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h2>Attendance Overview</h2>
+                            <div class="filter">
+                                <select id="attendanceFilter">
+                                    <option value="week">This Week</option>
+                                    <option value="month">This Month</option>
+                                    <option value="year">This Year</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="attendanceChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h2>Recent Activities</h2>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <p>New student registered</p>
+                                    <span class="time">2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-user-edit"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <p>Teacher profile updated</p>
+                                    <span class="time">4 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-clipboard-check"></i>
+                                </div>
+                                <div class="activity-info">
+                                    <p>Attendance marked for Class 5A</p>
+                                    <span class="time">6 hours ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../script/loadSidebar.js"></script>
+    <script src="../script/dashboard.js"></script>
+    <script src="../script/sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management | Attendance System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/commonCode.css">
+    <script src="../script/student.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <h2>Management Panel</h2>
+            </div>
+            <div class="menu">
+                <h3>MAIN</h3>
+                <ul>
+                    <li><a href="ManageDash.html">Dashboard</a></li>
+                </ul>
+                
+                <h3>ATTENDANCE</h3>
+                <ul>
+                    <li><a href="view-attendance.html">View Attendance</a></li>
+                    <li><a href="reports.html">Reports</a></li>
+                </ul>
+                
+                <h3>USER MANAGEMENT</h3>
+                <ul>
+                    <li><a href="teacherManage.html">Teachers</a></li>
+                    <li><a href="StudentManage.html"class="active">Students</a></li>
+                    <li><a href="ParentsManage.html" >Parents</a>
+                </ul>
+                
+                <h3>SETTINGS</h3>
+                <ul>
+                    <li><a href="classes.html">Classes</a></li>
+                    <li><a href="system-settings.html">System Settings</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <div class="search-box">
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-info">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                        <div class="notification-dropdown">
+                            <div class="notification-header">
+                                <h3>Notifications</h3>
+                                <span class="mark-read">Mark all as read</span>
+                            </div>
+                            <div class="notification-list">
+                                <div class="notification-item unread">
+                                    <i class="fas fa-user-plus"></i>
+                                    <div class="notification-content">
+                                        <p>New student registered</p>
+                                        <span class="time">2 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item unread">
+                                    <i class="fas fa-user-edit"></i>
+                                    <div class="notification-content">
+                                        <p>Teacher profile updated</p>
+                                        <span class="time">4 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <i class="fas fa-clipboard-check"></i>
+                                    <div class="notification-content">
+                                        <p>Attendance marked for Class 5A</p>
+                                        <span class="time">6 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-profile">
+                        <div class="avatar" id="userAvatar">
+                            <span>AM</span>
+                        </div>
+                        <div class="name">Admin Manager</div>
+                        <div class="user-dropdown">
+                            <div class="user-dropdown-header">
+                                <div class="avatar">
+                                    <span>AM</span>
+                                </div>
+                                <div class="user-details">
+                                    <h3>Admin Manager</h3>
+                                    <p>admin@school.com</p>
+                                </div>
+                            </div>
+                            <div class="user-dropdown-menu">
+                                <a href="#"><i class="fas fa-user"></i> Profile</a>
+                                <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                                <a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content">
+                <div class="content-header">
+                    <h1>Students Management</h1>
+                    <button id="addStudentBtn" class="primary-btn">Add New Student</button>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Students List</h2>
+                        <div class="filter">
+                            <select id="classFilter">
+                                <option value="">All Classes</option>
+                                <option value="1A">1A</option>
+                                <option value="2B">2B</option>
+                                <option value="3C">3C</option>
+                                <option value="4D">4D</option>
+                                <option value="5A">5A</option>
+                            </select>
+                            <input type="text" id="searchStudent" placeholder="Search student...">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Roll Number</th>
+                                    <th>Class</th>
+                                    <th>Parent Name</th>
+                                    <th>Contact</th>
+                                    <th>Attendance %</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentsList">
+                                <!-- Student data will be populated here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <div class="pagination">
+                            <button class="page-btn">Previous</button>
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <button class="page-btn">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Student Modal -->
+    <div id="addStudentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Student</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="addStudentForm">
+                    <div class="form-group">
+                        <label for="studentName">Full Name</label>
+                        <input type="text" id="studentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentRoll">Roll Number</label>
+                        <input type="text" id="studentRoll" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentClass">Class</label>
+                        <select id="studentClass" required>
+                            <option value="">Select Class</option>
+                            <option value="1A">1A</option>
+                            <option value="2B">2B</option>
+                            <option value="3C">3C</option>
+                            <option value="4D">4D</option>
+                            <option value="5A">5A</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentDOB">Date of Birth</label>
+                        <input type="date" id="studentDOB" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentGender">Gender</label>
+                        <select id="studentGender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentAddress">Address</label>
+                        <textarea id="studentAddress"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="parentName">Parent/Guardian Name</label>
+                        <input type="text" id="parentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="parentContact">Parent Contact</label>
+                        <input type="tel" id="parentContact" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="parentEmail">Parent Email</label>
+                        <input type="email" id="parentEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="studentJoinDate">Join Date</label>
+                        <input type="date" id="studentJoinDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentStatus">Status</label>
+                        <select id="studentStatus">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="button" class="secondary-btn cancel-btn">Cancel</button>
+                        <button type="submit" class="primary-btn">Add Student</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../script/loadSidebar.js"></script>
+    <script src="../script/student.js"></script>
+    <script src="../script/sidebar.js"></script>
+</body>
+</html>
